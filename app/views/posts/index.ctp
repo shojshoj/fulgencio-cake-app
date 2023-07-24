@@ -12,6 +12,7 @@
         array(
             'controller' => 'users',
             'action'=>'logout',
+            'user' => true
         )
     ); 
 ?> 
@@ -21,6 +22,7 @@
 <?php if(!$posts): ?>
     <h4>No Posts to Show</h4>
 <?php else: ?>
+    <!-- <?php print_r($posts)?> -->
     <?php foreach($posts as $post): ?>
         <div class="post-container">
             <div class="post-title">

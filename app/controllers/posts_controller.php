@@ -9,8 +9,8 @@ class PostsController extends AppController {
 	}
 
 	function index() {
-		$this->Post->recursive = 0;
-		$this->set('posts', $this->paginate());
+		$posts = $this->paginate('Post');
+		$this->set('posts', $posts);
 	}
 
 	function view($id = null) {
@@ -67,9 +67,10 @@ class PostsController extends AppController {
 		$this->Session->setFlash(__('Post was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
+	
 	function user_index() {
-		$this->Post->recursive = 0;
-		$this->set('posts', $this->paginate());
+		$posts = $this->paginate('Post');
+		$this->set('posts', $posts);
 	}
 
 	function user_view($id = null) {

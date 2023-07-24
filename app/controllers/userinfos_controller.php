@@ -9,14 +9,14 @@ class UserinfosController extends AppController {
 	// }
 
 	function index($user_id = null) {
-		$user_id = $this->Auth->user('id');
-		$user_info = $this->Userinfo->find(
-			'first',
-			array(
-				'conditions' => array('Userinfo.user_id' => $user_id)
-			)
-		);
-		$this->set('userinfo', $user_info);
+		// $user_id = $this->Auth->user('id');
+		// $user_info = $this->Userinfo->find(
+		// 	'first',
+		// 	array(
+		// 		'conditions' => array('Userinfo.user_id' => $user_id)
+		// 	)
+		// );
+		$this->set('userinfo', $userinfo);
 	}
 
 	//Values below are from Cake bake

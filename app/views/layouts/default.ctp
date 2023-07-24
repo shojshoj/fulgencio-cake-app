@@ -50,10 +50,11 @@
 			<?php echo $content_for_layout; ?>
 		</div>
 		<div id="footer">
-		<script type="text/javascript" src="<?php echo Router::url('bootstrap.bundle.js', true); ?>"></script>
 		</div>
 	</div>
 	<?php echo $this->element('sql_dump'); ?>
+	
+	<?php echo $this->Html->script('bootstrap.bundle.js')?>
 </body>
 
 </html>
