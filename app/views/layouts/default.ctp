@@ -41,7 +41,7 @@
 			<?php 
 				echo $this->element(
 					'nav-bar'
-					// ,array('asd' => 'test')
+					// ,array('passingMoreData' => 'test')
 				); 
 			?>
 		</div>
