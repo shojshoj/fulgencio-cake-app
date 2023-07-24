@@ -39,7 +39,7 @@ class AppController extends Controller {
     //Methods that are going to be done before using other controllers
     function beforeFilter() {
         $this->Auth->loginAction = array('admin' => false, 'controller' => 'users', 'action' => 'login');
-        $this->Auth->loginRedirect = array('controller' => 'pages', 'actions' => '/admin');
+        $this->Auth->loginRedirect = array('controller' => 'posts', 'actions' => 'index');
         //If above values are satisfied will allow display
         $this->Auth->allow('display');
     }
