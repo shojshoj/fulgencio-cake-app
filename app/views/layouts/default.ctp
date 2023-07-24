@@ -38,13 +38,16 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>Header</h1>
+			<?php 
+				echo $this->element(
+					'nav-bar'
+					// ,array('asd' => 'test')
+				); 
+			?>
 		</div>
 		<div id="content">
 			<?php echo $this->Session->flash(); ?>
-
 			<?php echo $content_for_layout; ?>
-
 		</div>
 		<div id="footer">
 		<script type="text/javascript" src="<?php echo Router::url('bootstrap.bundle.js', true); ?>"></script>

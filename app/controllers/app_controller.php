@@ -35,6 +35,7 @@
 class AppController extends Controller {
     //Components that are going to be called.
     var $components = array('Auth', 'Session');
+    var $uses = array('Userinfo');
 
     //Methods that are going to be done before using other controllers
     function beforeFilter() {
@@ -49,6 +50,14 @@ class AppController extends Controller {
         if(!array_key_exists('requested', $this->params)) {
             $user = $this->Session->read($this->Auth->sessionKey);
             $this->set(compact('user'));
+            // $user_id = $this->Auth->user('id');
+            $userinfo = $this->Userinfo->find(
+                'first',
+                array(
+                    'conditions' => array('Userinfo.user_id' => $user['id'])
+                )
+            );
+            $this->set(compact('userinfo'));
         }
     }
 }
