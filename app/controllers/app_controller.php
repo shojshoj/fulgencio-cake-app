@@ -34,9 +34,11 @@
  */
 class AppController extends Controller {
     //Components that are going to be called.
-    var $components = array('Auth', 'Session');
+    //var $components = array('Auth', 'Session');
 
-    // var $helpers = array('Javascript'); default uses all helpers
+    //var $helpers = array('Js','Javascript'); //default uses all helpers
+    var $components = array('Session','Auth','RequestHandler');
+	var $helpers = array('Html', 'Form', 'Javascript', 'Session', 'Paginator'); 
     var $uses = array('Userinfo');
 
     //Methods that are going to be done before using other controllers
