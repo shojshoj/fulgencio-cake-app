@@ -32,17 +32,17 @@
 		// echo $this->Html->css('cake.generic');
 		echo $this->Html->css('mystyles');
 		
-		// echo $this->Html->css('vuetify/vuetify.min.css');
+		echo $this->Html->css('vuetify/vuetify.min.css');
 		echo $this->Html->css('bootstrap/bootstrap.css');
 		echo $html->css('/vue/icon.css');
 		// echo $this->Html->css('/vuetify/vuetify.min.css');
-		echo $this->Html->css('element-plus/element-plus.css');
+		// echo $this->Html->css('element-plus/element-plus.css');
 
 		echo $scripts_for_layout;
 	?>
 	<?php echo $this->Javascript->link('./vue/vue.global.js')?>
-	<?php //echo $this->Javascript->link('./vuetify/vuetify.min.js')?>
-	<?php echo $this->Javascript->link('./element-plus/element-plus.js')?>
+	<?php echo $this->Javascript->link('./vuetify/vuetify.min.js')?>
+	<?php //echo $this->Javascript->link('./element-plus/element-plus.js')?>
 	<?php //echo $this->Javascript->link('./vue/axios.min.js')?>
 	<?php //echo $this->Javascript->link('./vue/moment.min.js')?>
 	

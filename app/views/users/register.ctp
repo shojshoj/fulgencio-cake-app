@@ -1,6 +1,6 @@
 
 <div id="app">
-    <el-input
+    <!-- <el-input
         v-model="username"
         placeholder="Username"
     ></el-input>
@@ -8,12 +8,16 @@
         @click="clickedHere"
     >
         {{message}}
-    </el-button>
+    </el-button> -->
+    <v-btn>{{ message }}</v-btn>
 </div>
 
 <script>
 const { createApp, onMounted, ref } = Vue;
-const { FormInstance, FormRules } = ElementPlus
+// const { FormInstance, FormRules } = ElementPlus
+const { createVuetify } = Vuetify
+
+const vuetify = createVuetify()
 
 createApp({
     setup() {
@@ -23,12 +27,12 @@ createApp({
         function clickedHere(){
             console.log(username.value)
         }
-        
+
         return {
             message,
             username,
             clickedHere
         }
     }
-}).use(ElementPlus).mount('#app')
+}).use(vuetify).mount('#app')
 </script>
