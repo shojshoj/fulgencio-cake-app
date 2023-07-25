@@ -30,7 +30,7 @@
 
 		// echo $this->Html->css('cake.generic');
 		echo $this->Html->css('mystyles');
-		echo $this->Html->css('bootstrap.css');
+		echo $this->Html->css('bootstrap/bootstrap.css');
 
 		echo $scripts_for_layout;
 	?>
@@ -54,7 +54,7 @@
 	</div>
 	<?php echo $this->element('sql_dump'); ?>
 	
-	<?php echo $this->Html->script('bootstrap.bundle.js')?>
+	<?php echo $this->Html->script('bootstrap/bootstrap.bundle.js')?>
 </body>
 
 </html>

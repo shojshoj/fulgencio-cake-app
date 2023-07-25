@@ -15,3 +15,5 @@
 2023-07-24 10:53:53 Warning: Warning (4096): Object of class CakeRoute could not be converted to string in [D:\Programs\xampp_5.6\htdocs\fulgencio-cake-app\cake\libs\router.php, line 1581]
 2023-07-24 10:53:55 Warning: Warning (4096): Object of class CakeRoute could not be converted to string in [D:\Programs\xampp_5.6\htdocs\fulgencio-cake-app\cake\libs\router.php, line 1581]
 2023-07-24 10:54:15 Warning: Warning (4096): Object of class CakeRoute could not be converted to string in [D:\Programs\xampp_5.6\htdocs\fulgencio-cake-app\cake\libs\router.php, line 1581]
+2023-07-25 05:34:33 Warning: Warning (2): array_merge() [<a href='http://php.net/function.array-merge'>function.array-merge</a>]: Argument #2 is not an array in [D:\Programs\xampp_5.6\htdocs\fulgencio-cake-app\cake\libs\view\helpers\form.php, line 244]
+2023-07-25 05:34:33 Warning: Warning (2): array_merge() [<a href='http://php.net/function.array-merge'>function.array-merge</a>]: Argument #2 is not an array in [D:\Programs\xampp_5.6\htdocs\fulgencio-cake-app\cake\libs\view\helpers\form.php, line 723]

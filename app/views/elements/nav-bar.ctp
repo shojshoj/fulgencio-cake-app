@@ -50,10 +50,25 @@
                             "action" => "user_index"
                         ),
                         array(
-                            "class" => "nav-link active text-light",
+                            "class" => "nav-link text-light",
                         )
                     )?>
                 </li>
+                <?php if(!empty($user)):?>
+                    <li>
+                        <?php echo $this->Html->link(
+                            'Logout',
+                            array(
+                                "controller" => "users",
+                                "action" => "logout",
+                                "user" => true,
+                            ),
+                            array(
+                                "class" => "nav-link text-light",
+                            )
+                        )?>
+                    </li>
+                <?php endif; ?>
             </ul>
         </div>
     </div>

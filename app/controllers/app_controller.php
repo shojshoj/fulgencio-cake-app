@@ -35,13 +35,14 @@
 class AppController extends Controller {
     //Components that are going to be called.
     var $components = array('Auth', 'Session');
+
+    // var $helpers = array('Javascript'); default uses all helpers
     var $uses = array('Userinfo');
 
     //Methods that are going to be done before using other controllers
     function beforeFilter() {
         $this->Auth->loginAction = array('user' => false, 'controller' => 'users', 'action' => 'login');
         $this->Auth->loginRedirect = array('controller' => 'posts', 'actions' => 'index');
-        //If above values are satisfied will allow display
         $this->Auth->allow('display');
     }
 
