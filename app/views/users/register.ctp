@@ -9,7 +9,14 @@
     >
         {{message}}
     </el-button> -->
-    <v-btn>{{ message }}</v-btn>
+    <v-text-field
+        v-model="username"
+        label="Username"
+        @update:model-value="clickedHere"
+    ></v-text-field>
+    <v-btn
+        @click="clickedHere"
+    >{{ message }}</v-btn>
 </div>
 
 <script>
