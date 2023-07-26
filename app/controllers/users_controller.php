@@ -3,6 +3,11 @@ class UsersController extends AppController {
 
 	var $name = 'Users';
 
+	function beforeFilter() {
+		parent::beforeFilter(); 
+		$this->Auth->allow('register');
+	}
+
     function login() {
     }
 
@@ -12,7 +17,28 @@ class UsersController extends AppController {
     }
 
 	function register() {
-		
+		if($this->Auth->user('id')){
+			$this->redirect(array('controller' => 'posts', 'action' => 'index'));
+		}
+		if ($this->data) {
+			$userExists = null;
+			$userExists = $this->User->find(
+				'all',
+				array(
+					'conditions' => array(
+						'User.username' => $this->data['User']['username']
+					)
+				)
+			);
+			if(!$userExists){
+				if ($this->data['User']['password'] == $this->Auth->password($this->data['User']['password_confirm'])) {
+					$this->User->create();
+					$this->User->save($this->data);
+				}
+			} else {
+				$this->Session->setFlash(__('This Username has already been taken.', true));
+			}
+		}
 	}
 
 	function index() {

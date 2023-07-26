@@ -70,7 +70,15 @@ class PostsController extends AppController {
 
 	//Get User ID
 	function user_index() {
-		$posts = $this->paginate('Post');
+		$user_id = $this->Auth->user('id');
+		$posts = $this->Post->find(
+			'all',
+			array(
+				'conditions' => array(
+					'Post.user_id' => $user_id
+				)
+			)
+		);
 		$this->set('posts', $posts);
 	}
 
@@ -79,6 +87,7 @@ class PostsController extends AppController {
 			$this->Session->setFlash(__('Invalid post', true));
 			$this->redirect(array('action' => 'index'));
 		}
+		// how to output this as json
 		$this->set('post', $this->Post->read(null, $id));
 	}
 

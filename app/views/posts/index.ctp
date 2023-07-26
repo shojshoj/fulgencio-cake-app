@@ -1,7 +1,7 @@
 <h2>All Posts</h2>
 
-<p>
-    Hi 
+
+    <!-- Hi 
 <?php 
     echo $session->read('Auth.User.username'); 
 ?>
@@ -16,8 +16,7 @@
         )
     ); 
 ?> 
-    here.
-</p>
+    here. -->
 
 <?php if(!$posts): ?>
     <h4>No Posts to Show</h4>
