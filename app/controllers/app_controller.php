@@ -63,4 +63,10 @@ class AppController extends Controller {
             $this->set(compact('userinfo'));
         }
     }
+
+    //API BACKBONE??
+    function getJsonPostData() {
+		$rawData = file_get_contents("php://input");
+		return json_decode($rawData, true);
+	}
 }

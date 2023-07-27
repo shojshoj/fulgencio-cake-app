@@ -5,7 +5,7 @@ class UsersController extends AppController {
 
 	function beforeFilter() {
 		parent::beforeFilter(); 
-		$this->Auth->allow('register');
+		$this->Auth->allow('register', 'api_login');
 	}
 
     function login() {
@@ -17,6 +17,7 @@ class UsersController extends AppController {
     }
 
 	function register() {
+		$this->log($this->data,'registerData');
 		if($this->Auth->user('id')){
 			$this->redirect(array('controller' => 'posts', 'action' => 'index'));
 		}
@@ -31,10 +32,12 @@ class UsersController extends AppController {
 				)
 			);
 			if(!$userExists){
-				if ($this->data['User']['password'] == $this->Auth->password($this->data['User']['password_confirm'])) {
-					$this->User->create();
-					$this->User->save($this->data);
-				}
+				// if ($this->data['User']['password'] == $this->Auth->password($this->data['User']['password_confirm'])) {
+					
+				// }
+				$this->User->create();
+				$this->User->save($this->data);
+				$this->log($this->Auth->user('id'), 'user_id');
 			} else {
 				$this->Session->setFlash(__('This Username has already been taken.', true));
 			}
@@ -95,6 +98,63 @@ class UsersController extends AppController {
 		}
 		$this->Session->setFlash(__('User was not deleted', true));
 		$this->redirect(array('action' => 'index'));
+	}
+
+	function api_login() {
+		$data = $this->getJsonPostData();
+		$this->log($this->getJsonPostData(),'loginData');
+		$username = $data['username'];
+		$password = Security::hash($data['password'], null, true);
+
+		$user = $this->User->find(
+			'first',
+			array(
+				'conditions' => array(
+					'User.username' => $username,
+					'User.password' => $password
+				)
+			)
+		);
+
+		if(!empty($user)){
+			if ($this->Auth->login($user['User'])) {
+				$this->Session->write('User', $user['User']);
+				// $this->Session->write('user', $user['User']);
+				// $user = $this->Session->read($this->Auth->sessionKey);
+				// $this->set(compact('user'));
+				// $user_id = $this->Auth->user('id');
+				// $userinfo = $this->Userinfo->find(
+				// 	'first',
+				// 	array(
+				// 		'conditions' => array('Userinfo.user_id' => $user['id'])
+				// 	)
+				// );
+				// $this->set(compact('userinfo'));
+				$response = array(
+					"status" => true,
+					"message" => "Login Successful",
+					"data" => $user['User']['username']
+				);
+			} else {
+				$response = array(
+					"status" => false,
+					"message" => "Login Unsuccessful",
+					"data" => $user['User']['username']
+				);
+			}	
+		} else {
+			$response = array(
+				"status" => false,
+				"message" => "Invalid Username or Password",
+				"data" => NULL
+			);
+		}
+
+		
+		$this->layout='ajax'; 
+		$this->set('data', $response);
+		$this->log($response,'loginData');
+		$this->render('/common/json');
 	}
 
 	// cake bake
