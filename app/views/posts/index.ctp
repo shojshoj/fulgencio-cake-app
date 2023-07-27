@@ -1,38 +1,71 @@
-<h2>All Posts</h2>
+<div id="app">
+    <v-container fluid>
+        <v-row>
+            <v-col
+                v-if="!posts[0]"
+            >
+                <v-card>
+                    <v-card-title>No Posts to Show</v-card-title>
+                    <v-card-body>
+                        <div class="d-flex align-center justify-center fill-height py-10">
+                            <v-progress-circular indeterminate>
+                            </v-progress-circular>
+                        </div>
+                    </v-card-body>
+                </v-card>
+            </v-col>
+            <v-col
+                v-else
+                cols="12"
+                v-for="post in posts"
+                :key="post.id"
+            >
+                <v-card>
+                    <v-card-title>{{post.title}}</v-card-title>
+                    <v-card-text>{{post.body}}</v-card-text>
+                </v-card>
+            </v-col>
+        </v-row>
+    </v-container>
+</div>
 
 
-    <!-- Hi 
-<?php 
-    echo $session->read('Auth.User.username'); 
-?>
-    , You are currently logged in as the Administrator. You can 
-<?php 
-    echo $html->link(
-        'Log out', 
-        array(
-            'controller' => 'users',
-            'action'=>'logout',
-            'user' => true
-        )
-    ); 
-?> 
-    here. -->
+<script type="importmap">
+    {
+        "imports" : {
+            "postService" : "./js/axios/services/PostService.js"
+        }
+    }
+</script>
+<script type="module">
+const { createApp, onMounted, ref, reactive } = Vue;
+const { createVuetify } = Vuetify
+const vuetify = createVuetify()
 
-<?php if(!$posts): ?>
-    <h4>No Posts to Show</h4>
-<?php else: ?>
-    <!-- <?php print_r($posts)?> -->
-    <?php foreach($posts as $post): ?>
-        <div class="post-container">
-            <div class="post-title">
-                <h4><?= $post['Post']['title'];?></h4>
-            </div>
-            <div class="post-body">
-                <p><?= $post['Post']['body'];?></p>
-            </div>
-            <div class="post-actions">
-                <button>View</button>
-            </div>
-        </div>
-    <?php endforeach?>
-<?php endif; ?>
+import { postService } from "postService"
+
+createApp({
+    setup() {
+        const message = ref('Hello Josh :>')
+        console.log(message.value)
+        const posts = ref([])
+
+        onMounted( async () => {
+            await postService.getAllPosts().then((response) => {
+                console.log(response.data.data)
+                console.log(response.data.data.length)
+                for(let i=0; i<response.data.data.length; i++) {
+                    console.log(response.data.data[i].Post)
+                    posts.value.push(response.data.data[i].Post)
+                    console.log(posts.value)
+                }
+            })
+        })
+
+        return {
+            message,
+            posts
+        }
+    }
+}).use(vuetify).mount('#app')
+</script>

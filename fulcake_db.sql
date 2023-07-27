@@ -26,6 +26,8 @@ CREATE TABLE `posts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(64) NOT NULL,
   `body` text NOT NULL,
+  `image_path` varchar(512) NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
   `user_id` int(11) NOT NULL,
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
@@ -39,7 +41,7 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (1,'Post 1 Title','Lorem ipsum dolor sit amet. Et modi nihil sit incidunt blanditiis et aperiam culpa et doloribus sapiente est voluptatem voluptas est natus soluta. Sit minus dignissimos in nemo dolorum eos quia expedita est debitis molestiae qui tenetur molestias et fugiat maxime aut aliquid ullam. Non unde ipsum id nemo fuga ex molestias illo. Vel aliquid impedit hic dolorem minima id iste exercitationem qui soluta aliquam.',1,'2023-07-24 00:00:00','2023-07-24 00:00:00'),(2,'Post 2 Title','Lorem ipsum dolor sit amet. Et modi nihil sit incidunt blanditiis et aperiam culpa et doloribus sapiente est voluptatem voluptas est natus soluta. Sit minus dignissimos in nemo dolorum eos quia expedita est debitis molestiae qui tenetur molestias et fugiat maxime aut aliquid ullam. Non unde ipsum id nemo fuga ex molestias illo. Vel aliquid impedit hic dolorem minima id iste exercitationem qui soluta aliquam.',2,'2023-07-24 00:00:00','2023-07-24 00:00:00'),(3,'Post 3 Title','Lorem ipsum dolor sit amet. Et modi nihil sit incidunt blanditiis et aperiam culpa et doloribus sapiente est voluptatem voluptas est natus soluta. Sit minus dignissimos in nemo dolorum eos quia expedita est debitis molestiae qui tenetur molestias et fugiat maxime aut aliquid ullam. Non unde ipsum id nemo fuga ex molestias illo. Vel aliquid impedit hic dolorem minima id iste exercitationem qui soluta aliquam.',3,'2023-07-24 00:00:00','2023-07-24 00:00:00'),(4,'Post 4 Title','Lorem ipsum dolor sit amet. Et modi nihil sit incidunt blanditiis et aperiam culpa et doloribus sapiente est voluptatem voluptas est natus soluta. Sit minus dignissimos in nemo dolorum eos quia expedita est debitis molestiae qui tenetur molestias et fugiat maxime aut aliquid ullam. Non unde ipsum id nemo fuga ex molestias illo. Vel aliquid impedit hic dolorem minima id iste exercitationem qui soluta aliquam.',1,'2023-07-24 00:00:00','2023-07-24 00:00:00');
+INSERT INTO `posts` VALUES (1,'Post 1 Title','Lorem ipsum dolor sit amet. Et modi nihil sit incidunt blanditiis et aperiam culpa et doloribus sapiente est voluptatem voluptas est natus soluta. Sit minus dignissimos in nemo dolorum eos quia expedita est debitis molestiae qui tenetur molestias et fugiat maxime aut aliquid ullam. Non unde ipsum id nemo fuga ex molestias illo. Vel aliquid impedit hic dolorem minima id iste exercitationem qui soluta aliquam.','',0,1,'2023-07-24 00:00:00','2023-07-24 00:00:00'),(2,'Post 2 Title','Lorem ipsum dolor sit amet. Et modi nihil sit incidunt blanditiis et aperiam culpa et doloribus sapiente est voluptatem voluptas est natus soluta. Sit minus dignissimos in nemo dolorum eos quia expedita est debitis molestiae qui tenetur molestias et fugiat maxime aut aliquid ullam. Non unde ipsum id nemo fuga ex molestias illo. Vel aliquid impedit hic dolorem minima id iste exercitationem qui soluta aliquam.','',0,2,'2023-07-24 00:00:00','2023-07-24 00:00:00'),(3,'Post 3 Title','Lorem ipsum dolor sit amet. Et modi nihil sit incidunt blanditiis et aperiam culpa et doloribus sapiente est voluptatem voluptas est natus soluta. Sit minus dignissimos in nemo dolorum eos quia expedita est debitis molestiae qui tenetur molestias et fugiat maxime aut aliquid ullam. Non unde ipsum id nemo fuga ex molestias illo. Vel aliquid impedit hic dolorem minima id iste exercitationem qui soluta aliquam.','',0,3,'2023-07-24 00:00:00','2023-07-24 00:00:00'),(4,'Post 4 Title','Lorem ipsum dolor sit amet. Et modi nihil sit incidunt blanditiis et aperiam culpa et doloribus sapiente est voluptatem voluptas est natus soluta. Sit minus dignissimos in nemo dolorum eos quia expedita est debitis molestiae qui tenetur molestias et fugiat maxime aut aliquid ullam. Non unde ipsum id nemo fuga ex molestias illo. Vel aliquid impedit hic dolorem minima id iste exercitationem qui soluta aliquam.','',0,1,'2023-07-24 00:00:00','2023-07-24 00:00:00');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -56,6 +58,7 @@ CREATE TABLE `userinfos` (
   `last_name` varchar(64) NOT NULL,
   `address_line_1` varchar(64) NOT NULL,
   `address_line_2` varchar(64) NOT NULL,
+  `image_path` varchar(512) NOT NULL,
   `user_id` int(11) NOT NULL,
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
@@ -69,7 +72,7 @@ CREATE TABLE `userinfos` (
 
 LOCK TABLES `userinfos` WRITE;
 /*!40000 ALTER TABLE `userinfos` DISABLE KEYS */;
-INSERT INTO `userinfos` VALUES (1,'Joshua','Fulgencio','851 Leyte St.','Sampaloc, Manila',1,'2023-07-24 00:00:00','2023-07-24 00:00:00'),(2,'Jonathan','Joestar','888 Skrt St.','Giga, Manila',2,'2023-07-24 00:00:00','2023-07-24 00:00:00'),(3,'Joseph','Joestar','999 Brt St.','Giga, Chad',3,'2023-07-24 00:00:00','2023-07-24 00:00:00');
+INSERT INTO `userinfos` VALUES (1,'Joshua','Fulgencio','851 Leyte St.','Sampaloc, Manila','',1,'2023-07-24 00:00:00','2023-07-24 00:00:00'),(2,'Jonathan','Joestar','888 Skrt St.','Giga, Manila','',2,'2023-07-24 00:00:00','2023-07-24 00:00:00'),(3,'Joseph','Joestar','999 Brt St.','Giga, Chad','',3,'2023-07-24 00:00:00','2023-07-24 00:00:00');
 /*!40000 ALTER TABLE `userinfos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,10 +87,11 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(64) NOT NULL,
   `password` varchar(64) NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,7 +100,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'user_josh','b372e00b478d193a3220e917a112dc917846e20b','2023-07-24 00:00:00','2023-07-24 00:00:00'),(2,'user_two','test123','2023-07-24 00:00:00','2023-07-24 00:00:00'),(3,'user_three','test123','2023-07-24 00:00:00','2023-07-24 00:00:00');
+INSERT INTO `users` VALUES (1,'user_josh','b372e00b478d193a3220e917a112dc917846e20b',1,'2023-07-24 00:00:00','2023-07-24 00:00:00'),(2,'user_two','test123',0,'2023-07-24 00:00:00','2023-07-24 00:00:00'),(3,'user_three','test123',0,'2023-07-24 00:00:00','2023-07-24 00:00:00'),(4,'test_user123','73cbc7285c134db3477de2d323b7b30a8363a4f2',0,'2023-07-25 04:38:03','2023-07-25 04:38:03'),(5,'new_user','73cbc7285c134db3477de2d323b7b30a8363a4f2',0,'2023-07-25 06:34:11','2023-07-25 06:34:11'),(6,'user_josh1234','73cbc7285c134db3477de2d323b7b30a8363a4f2',0,'2023-07-27 04:42:41','2023-07-27 04:42:41'),(7,'user_josh12345','388c1c2612dfe7716f07e167002040d80391852f',0,'2023-07-27 04:42:58','2023-07-27 04:42:58'),(8,'user_josh4556','73cbc7285c134db3477de2d323b7b30a8363a4f2',0,'2023-07-27 04:49:00','2023-07-27 04:49:00'),(9,'user_josh9999','05201a2de2bfbaf10a7b0cf37c1688d4cef5044a',0,'2023-07-27 04:59:47','2023-07-27 04:59:47');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -109,4 +113,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-25  8:46:09
+-- Dump completed on 2023-07-27 15:34:40

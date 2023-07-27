@@ -5,7 +5,7 @@ class UsersController extends AppController {
 
 	function beforeFilter() {
 		parent::beforeFilter(); 
-		$this->Auth->allow('register', 'api_login');
+		$this->Auth->allow('register', 'api_login', 'api_create');
 	}
 
     function login() {
@@ -17,31 +17,31 @@ class UsersController extends AppController {
     }
 
 	function register() {
-		$this->log($this->data,'registerData');
-		if($this->Auth->user('id')){
-			$this->redirect(array('controller' => 'posts', 'action' => 'index'));
-		}
-		if ($this->data) {
-			$userExists = null;
-			$userExists = $this->User->find(
-				'all',
-				array(
-					'conditions' => array(
-						'User.username' => $this->data['User']['username']
-					)
-				)
-			);
-			if(!$userExists){
-				// if ($this->data['User']['password'] == $this->Auth->password($this->data['User']['password_confirm'])) {
+		// $this->log($this->data,'registerData');
+		// if($this->Auth->user('id')){
+		// 	$this->redirect(array('controller' => 'posts', 'action' => 'index'));
+		// }
+		// if ($this->data) {
+		// 	$userExists = null;
+		// 	$userExists = $this->User->find(
+		// 		'all',
+		// 		array(
+		// 			'conditions' => array(
+		// 				'User.username' => $this->data['User']['username']
+		// 			)
+		// 		)
+		// 	);
+		// 	if(!$userExists){
+		// 		// if ($this->data['User']['password'] == $this->Auth->password($this->data['User']['password_confirm'])) {
 					
-				// }
-				$this->User->create();
-				$this->User->save($this->data);
-				$this->log($this->Auth->user('id'), 'user_id');
-			} else {
-				$this->Session->setFlash(__('This Username has already been taken.', true));
-			}
-		}
+		// 		// }
+		// 		$this->User->create();
+		// 		$this->User->save($this->data);
+		// 		$this->log($this->Auth->user('id'), 'user_id');
+		// 	} else {
+		// 		$this->Session->setFlash(__('This Username has already been taken.', true));
+		// 	}
+		// }
 	}
 
 	function index() {
@@ -130,33 +130,44 @@ class UsersController extends AppController {
 				// 	)
 				// );
 				// $this->set(compact('userinfo'));
-				$response = array(
-					"status" => true,
-					"message" => "Login Successful",
-					"data" => $user['User']['username']
-				);
+				$response = $this->createResponse(true, "Login Successful.", $user['User']['username']);
 			} else {
-				$response = array(
-					"status" => false,
-					"message" => "Login Unsuccessful",
-					"data" => $user['User']['username']
-				);
+				$response = $this->createResponse(false, "Login Unsuccessful.", $user['User']['username']);
 			}	
 		} else {
-			$response = array(
-				"status" => false,
-				"message" => "Invalid Username or Password",
-				"data" => NULL
-			);
-		}
-
-		
-		$this->layout='ajax'; 
-		$this->set('data', $response);
-		$this->log($response,'loginData');
-		$this->render('/common/json');
+			$response = $this->createResponse(false, "Invalid Username or Password", NULL);
+		}		
+		$this->returnAsJson($response, 'loginData');
 	}
 
+	function api_create() {
+		$data = $this->getJsonPostData();
+		$this->log($this->getJsonPostData(), 'registerData');
+		$username = $data['username'];
+		$password = Security::hash($data['password'], null, true);
+
+		$userExists = $this->User->find(
+			'first',
+			array(
+				'conditions' => array(
+					'User.username' => $username
+				)
+			)
+		);
+
+		
+		if(empty($userExists)){
+			$response = $this->createResponse(true, 'User was Registered.', NULL);
+		} else {
+			$response = $this->createResponse(true, 'Username already used.', NULL);
+		}
+
+		if($this->Auth->user('id')){
+			$response = $this->createResponse(false, 'You are Logged in', NULL);
+		}
+
+		$this->returnAsJson($response, 'registerData');
+	}
 	// cake bake
 	// function user_index() {
 	// 	$this->User->recursive = 0;

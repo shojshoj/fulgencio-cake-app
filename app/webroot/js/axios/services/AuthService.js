@@ -9,7 +9,6 @@ export default class AuthService{
         //     "username": "user_josh",
         //     "password": "test123"
         // });
-
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
@@ -20,6 +19,21 @@ export default class AuthService{
             data : data
         };
 
+        let response = await axios.request(config)
+
+        return response
+    }
+
+    async register(data){
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: '/fuldev/users/api_create',
+            headers: { 
+                'Content-Type': 'application/json',
+            },
+            data : data
+        };
         let response = await axios.request(config)
 
         return response

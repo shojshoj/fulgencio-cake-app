@@ -5,12 +5,56 @@ class PostsController extends AppController {
 
     function beforeFilter() {
     	parent::beforeFilter(); 
-        $this->Auth->allow('index','view');
+        $this->Auth->allow('index','view','api_get_all');
 	}
 
 	function index() {
 		$posts = $this->paginate('Post');
 		$this->set('posts', $posts);
+	}
+
+	function api_get_all() {
+		$posts = $this->Post->find('all');
+		if($posts){
+			// $data = json_encode($posts);
+			$response = $this->createResponse(
+				true,
+				"Posts successfully Retrieved",
+				$posts
+			);
+		} else {
+			$response = $this->createResponse(
+				false,
+				"Posts wasn't Retrieved"
+			);
+		}
+		$this->returnAsJson($response, 'postLog');
+	}
+
+	function user_api_get_all() {
+		$user_id = $this->Auth->user('id');
+		$posts = $this->Post->find(
+			'all',
+			array(
+				'conditions' => array(
+					'Post.user_id' => $user_id
+				)
+			)
+		);
+		if($posts){
+			// $data = json_encode($posts);
+			$response = $this->createResponse(
+				true,
+				"Posts successfully Retrieved",
+				$posts
+			);
+		} else {
+			$response = $this->createResponse(
+				false,
+				"Posts wasn't Retrieved"
+			);
+		}
+		$this->returnAsJson($response, 'postLog');
 	}
 
 	function view($id = null) {

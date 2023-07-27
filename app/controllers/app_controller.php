@@ -69,4 +69,19 @@ class AppController extends Controller {
 		$rawData = file_get_contents("php://input");
 		return json_decode($rawData, true);
 	}
+
+    function createResponse($status = NULL, $message = NULL, $data = NULL){
+		return array(
+			"status" => $status,
+			"message" => $message,
+			"data" => $data
+		);
+	}
+
+    function returnAsJson($response=NULL, $logData='defaultLog') {
+        $this->layout='ajax'; 
+		$this->set('data', $response);
+		$this->log($response, $logData);
+		$this->render('/common/json');
+    }
 }

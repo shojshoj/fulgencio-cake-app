@@ -31,7 +31,10 @@ class Post extends AppModel {
 			'className' => 'User',
 			'foreignKey' => 'user_id',
 			'conditions' => '',
-			'fields' => '',
+			'fields' => array(
+				'id',
+				'is_active'
+			),
 			'order' => ''
 		)
 	);
