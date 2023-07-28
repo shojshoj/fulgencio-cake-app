@@ -49,7 +49,6 @@
 	<?php //echo $this->Javascript->link('./element-plus/element-plus.js')?>
 	<?php //echo $this->Javascript->link('./vue/axios.min.js')?>
 	<?php //echo $this->Javascript->link('./vue/moment.min.js')?>
-	
 </head>
 <body>
 	<div id="container">
@@ -62,7 +61,6 @@
 			?>
 		</div>
 		<div id="content">
-			<?php //echo $this->Session->flash(); ?>
 			<?php echo $content_for_layout; ?>
 		</div>
 		<div id="footer">

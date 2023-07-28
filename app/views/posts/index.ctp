@@ -2,16 +2,26 @@
     <v-container fluid>
         <v-row>
             <v-col
-                v-if="!posts[0]"
+                cols="12"
+                sm="4"
             >
                 <v-card>
-                    <v-card-title>No Posts to Show</v-card-title>
-                    <v-card-body>
+                    
+                </v-card>
+            </v-col>
+            <v-col
+                cols="12"
+                sm="4"
+                v-if="!posts[0]"
+            >
+                <v-card class="text-center">
+                    <v-card-title>Loading Posts</v-card-title>
+                    <v-card-text>
                         <div class="d-flex align-center justify-center fill-height py-10">
                             <v-progress-circular indeterminate>
                             </v-progress-circular>
                         </div>
-                    </v-card-body>
+                    </v-card-text>
                 </v-card>
             </v-col>
             <v-col
@@ -29,14 +39,14 @@
     </v-container>
 </div>
 
-
 <script type="importmap">
     {
         "imports" : {
-            "postService" : "./js/axios/services/PostService.js"
+            "postService" : "./js/services/PostService.js"
         }
     }
 </script>
+
 <script type="module">
 const { createApp, onMounted, ref, reactive } = Vue;
 const { createVuetify } = Vuetify

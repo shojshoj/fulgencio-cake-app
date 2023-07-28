@@ -5,7 +5,13 @@ class UsersController extends AppController {
 
 	function beforeFilter() {
 		parent::beforeFilter(); 
-		$this->Auth->allow('register', 'api_login', 'api_create');
+		$this->Auth->allow(
+			'register', 
+			'api_login', 
+			'api_create', 
+			'signup',
+			'api_get_info'
+		);
 	}
 
     function login() {
@@ -42,6 +48,10 @@ class UsersController extends AppController {
 		// 		$this->Session->setFlash(__('This Username has already been taken.', true));
 		// 	}
 		// }
+	}
+
+	function signup() {
+
 	}
 
 	function index() {
@@ -136,7 +146,8 @@ class UsersController extends AppController {
 			}	
 		} else {
 			$response = $this->createResponse(false, "Invalid Username or Password", NULL);
-		}		
+		}
+
 		$this->returnAsJson($response, 'loginData');
 	}
 
@@ -155,18 +166,73 @@ class UsersController extends AppController {
 			)
 		);
 
-		
-		if(empty($userExists)){
-			$response = $this->createResponse(true, 'User was Registered.', NULL);
+		if(empty($userExists)) {
+			$this->User->create();
+			$this->User->set(array(
+				'username' => $username,
+				'password' => $password
+			));
+			$this->User->save();
+			$user = array(
+				'User.username' => $username,
+				'User.password' => $password
+			);
+			if ($this->Auth->login($user)) { 	
+				$this->Userinfo->create();
+				$this->Userinfo->set(array(
+					'first_name' => 'kero',
+					'last_name' => '-'.$username.'-',
+					'address_line_1' => 'No Address',
+					'address_line_2' => 'No Address',
+					'image_path' => '/'.basename(ROOT).'/files/user/default/uploads/images/user_image.png',
+					'user_id' => $this->Auth->user('id')
+				));
+				$this->Userinfo->save();
+				$response = $this->createResponse(true, 'Successfully Created User.', NULL);
+			} else {
+				$response = $this->createResponse(false, 'User Information was not created.', NULL);
+			}
+			// if($this->Auth->login($user['User'])){
+			// 	$this->Userinfo->set(array(
+			// 		'first_name' => 'kero',
+			// 		'last_name' => '-'.$username.'-',
+			// 		'address_line_1' => 'No Address',
+			// 		'image_path' => $this->basename('ROOT'),
+			// 		'user_id' => $this->Auth->user('id')
+			// 	));
+			// 	$response = $this->createResponse(true, 'User was Registered.', NULL);
+			// }			
 		} else {
 			$response = $this->createResponse(true, 'Username already used.', NULL);
 		}
 
+		// if($this->Auth->user('id')){
+		// 	$response = $this->createResponse(false, 'You are Logged in', NULL);
+		// }
+
+		$this->returnAsJson($response, 'registerData');
+	}
+
+	//Api that needs to be logged in.
+	function api_get_info(){
 		if($this->Auth->user('id')){
-			$response = $this->createResponse(false, 'You are Logged in', NULL);
+			$userinfo = $this->Userinfo->find(
+				'first',
+				array(
+					'conditions' => array(
+						'Userinfo.user_id' => $this->Auth->user('id')
+					)
+				)
+			);
+			$response = $this->createResponse(true, 'Successfully Retrieved User.', $userinfo);
+		} else {
+			$response = $this->createResponse(false, 'You are not Authenticated.');
 		}
 
 		$this->returnAsJson($response, 'registerData');
+	}
+
+	function user_view() {
 	}
 	// cake bake
 	// function user_index() {

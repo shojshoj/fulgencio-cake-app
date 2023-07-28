@@ -1,4 +1,4 @@
-<div id="register-app">
+<div id="login-app">
     <!-- <el-input
         v-model="username"
         placeholder="Username"
@@ -24,6 +24,11 @@
                 label="Password"
                 type="password"
             ></v-text-field>
+            <p 
+                v-if="authError" 
+                v-html="authError"
+                class="text-center text-caption text-red-darken-3"
+            ></p>
             <v-btn
                 block
                 @click="handleLogin"
@@ -35,7 +40,7 @@
                 class="mt-2"
                 block
                 density="compact"
-                @click="redirect('/fuldev/users/login')"
+                @click="redirect('/fuldev/users/register')"
             >
                 Register Here
             </v-btn>
@@ -47,7 +52,7 @@
 <script type="importmap">
     {
         "imports" : {
-            "authService" : "./js/axios/services/AuthService.js"
+            "authService" : "./js/services/AuthService.js"
         }
     }
 </script>
@@ -64,6 +69,8 @@ createApp({
     setup() {
         const message = ref('Hello Josh :>')
 
+        const authError = ref('<?php echo $this->Session->flash('auth');?>')
+
         const formData = reactive({
             username: "",
             password: ""
@@ -78,7 +85,8 @@ createApp({
         }
 
         function redirect(url){
-		    window.location.href = url;
+            console.log(url)
+		    window.location.assign(url)
 	    }
 
         async function handleLogin() {
@@ -95,6 +103,7 @@ createApp({
         }
 
         return {
+            authError,
             message,
             clickedHere,
             formData,
@@ -104,5 +113,5 @@ createApp({
             redirect
         }
     }
-}).use(vuetify).mount('#register-app')
+}).use(vuetify).mount('#login-app')
 </script>

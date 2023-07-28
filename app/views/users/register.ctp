@@ -1,4 +1,4 @@
-<div id="register-app">
+<div id="register-page">
     <!-- <el-input
         v-model="username"
         placeholder="Username"
@@ -47,7 +47,7 @@
 <script type="importmap">
     {
         "imports" : {
-            "authService" : "./js/axios/services/AuthService.js"
+            "authService" : "/fuldev/app/webroot/js/services/AuthService.js"
         }
     }
 </script>
@@ -57,6 +57,8 @@ const { createApp, onMounted, ref, reactive } = Vue;
 // const { FormInstance, FormRules } = ElementPlus
 const { createVuetify } = Vuetify
 const vuetify = createVuetify()
+
+//try removing the authservice, it might be imported in other values
 
 import { authService } from "authService"
 
@@ -86,10 +88,10 @@ createApp({
                 "username": username.value,
                 "password": password.value
             });
-            await authService.login(data).then((response) => {
+            await authService.register(data).then((response) => {
                 console.log(response.data);
                 if (response.data.status){
-                    window.location.replace('/fuldev/user/posts')
+                    
                 }
             })
         }
@@ -104,5 +106,5 @@ createApp({
             redirect
         }
     }
-}).use(vuetify).mount('#register-app')
+}).use(vuetify).mount('#register-page')
 </script>

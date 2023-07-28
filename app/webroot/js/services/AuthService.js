@@ -34,6 +34,7 @@ export default class AuthService{
             },
             data : data
         };
+
         let response = await axios.request(config)
 
         return response
