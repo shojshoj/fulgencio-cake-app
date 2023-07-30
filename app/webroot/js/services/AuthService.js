@@ -28,7 +28,7 @@ export default class AuthService{
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: '/fuldev/users/api_create',
+            url: '/fuldev/users/api_register',
             headers: { 
                 'Content-Type': 'application/json',
             },

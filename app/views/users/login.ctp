@@ -29,6 +29,10 @@
                 v-html="authError"
                 class="text-center text-caption text-red-darken-3"
             ></p>
+            <p 
+                v-if="authMessage" 
+                class="text-center text-caption text-blue-darken-3"
+            >{{ authMessage }}</p>
             <v-btn
                 block
                 @click="handleLogin"
@@ -40,36 +44,49 @@
                 class="mt-2"
                 block
                 density="compact"
-                @click="redirect('/fuldev/users/register')"
+                @click="redirectPage('/fuldev/users/register')"
             >
                 Register Here
             </v-btn>
         </v-col>
     </v-row>
+    <v-row>
+        <v-col>
+            <p class="text-center text-subtitle-1 text-info">Ignore this: Testing Vuetify Themes</p>
+        </v-col>
+    </v-row>
 </v-container>
 </div>
 
-<script type="importmap">
+<!-- <script type="importmap">
     {
         "imports" : {
             "authService" : "./js/services/AuthService.js"
         }
     }
-</script>
+</script> -->
 
 <script type="module">
 const { createApp, onMounted, ref, reactive } = Vue;
 // const { FormInstance, FormRules } = ElementPlus
 const { createVuetify } = Vuetify
-const vuetify = createVuetify()
+
+import vuetifyThemeConfig from 'vuetifyThemeConfig';
+
+const vuetify = createVuetify(vuetifyThemeConfig)
 
 import { authService } from "authService"
+
 
 createApp({
     setup() {
         const message = ref('Hello Josh :>')
 
         const authError = ref('<?php echo $this->Session->flash('auth');?>')
+        
+        
+        const queryParams = new URLSearchParams(window.location.search);
+        const authMessage = ref(queryParams.get('authMessage'))
 
         const formData = reactive({
             username: "",
@@ -84,9 +101,13 @@ createApp({
             console.log(username.value)
         }
 
-        function redirect(url){
-            console.log(url)
-		    window.location.assign(url)
+        // function redirectPage(url){
+        //     console.log(url)
+		//     window.location.assign(url)
+	    // }
+
+        function redirectPage(url, query=""){
+		    window.location.href = url+query;
 	    }
 
         async function handleLogin() {
@@ -103,6 +124,7 @@ createApp({
         }
 
         return {
+            authMessage,
             authError,
             message,
             clickedHere,
@@ -110,7 +132,7 @@ createApp({
             handleLogin,
             username,
             password,
-            redirect
+            redirectPage
         }
     }
 }).use(vuetify).mount('#login-app')

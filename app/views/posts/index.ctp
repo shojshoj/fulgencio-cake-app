@@ -39,13 +39,13 @@
     </v-container>
 </div>
 
-<script type="importmap">
+<!-- <script type="importmap">
     {
         "imports" : {
-            "postService" : "./js/services/PostService.js"
+            "postService" : "/fuldev/app/webroot/js/services/PostService.js"
         }
     }
-</script>
+</script> -->
 
 <script type="module">
 const { createApp, onMounted, ref, reactive } = Vue;

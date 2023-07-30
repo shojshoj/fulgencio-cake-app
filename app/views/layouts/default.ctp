@@ -46,9 +46,31 @@
 	<?php echo $this->Javascript->link('./axios/index.js')?>
 	<?php //echo $this->Javascript->link('./vuetify/materialdesignicons.min.js')?>
 	<?php echo $this->Javascript->link('./vuetify/vuetify.min.js')?>
+	<?php //echo $this->Javascript->link('./vuetify/vuetify-theme.config.js')?>
 	<?php //echo $this->Javascript->link('./element-plus/element-plus.js')?>
 	<?php //echo $this->Javascript->link('./vue/axios.min.js')?>
 	<?php //echo $this->Javascript->link('./vue/moment.min.js')?>
+
+	<?php echo $this->Javascript->link('./vuelidate/vue-demi.js') ?>
+	<?php echo $this->Javascript->link('./vuelidate/@vuelidate/core.js') ?>	
+	<?php echo $this->Javascript->link('./vuelidate/@vuelidate/validators.js') ?>
+
+
+	<?php
+		$baseUrl = $this->Html->url('/');
+	?>
+
+	<!-- Services after that utilizes the axios file -->
+	<script type="importmap">
+		{
+			"imports" : {
+				"vuetifyThemeConfig" : "<?php echo $baseUrl; ?>js/vuetify/vuetify-theme.config.js",
+				"authService" : "<?php echo $baseUrl; ?>js/services/AuthService.js",
+				"postService" : "<?php echo $baseUrl; ?>js/services/PostService.js"
+			}
+		}
+	</script>
+
 </head>
 <body>
 	<div id="container">

@@ -6,9 +6,10 @@ class UsersController extends AppController {
 	function beforeFilter() {
 		parent::beforeFilter(); 
 		$this->Auth->allow(
+			'login',
 			'register', 
 			'api_login', 
-			'api_create', 
+			'api_register', 
 			'signup',
 			'api_get_info'
 		);
@@ -151,7 +152,8 @@ class UsersController extends AppController {
 		$this->returnAsJson($response, 'loginData');
 	}
 
-	function api_create() {
+	//Register Function
+	function api_register() {
 		$data = $this->getJsonPostData();
 		$this->log($this->getJsonPostData(), 'registerData');
 		$username = $data['username'];
