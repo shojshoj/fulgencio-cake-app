@@ -9,45 +9,56 @@
         {{message}}
     </el-button> -->
 <v-container fluid>
-    <v-row>
-        <v-col cols="12">
-            <v-card-title class="text-center">Login</v-card-title>
-        </v-col>
+    <v-row class="text-center justify-center">
         <v-col>
-            <v-text-field
-                v-model="username"
-                label="Username"
-                type="text"
-            ></v-text-field>
-            <v-text-field
-                v-model="password"
-                label="Password"
-                type="password"
-            ></v-text-field>
-            <p 
-                v-if="authError" 
-                v-html="authError"
-                class="text-center text-caption text-red-darken-3"
-            ></p>
-            <p 
-                v-if="authMessage" 
-                class="text-center text-caption text-blue-darken-3"
-            >{{ authMessage }}</p>
-            <v-btn
-                block
-                @click="handleLogin"
+            <v-card 
+                class="pa-5"
+                elevation="5"
             >
-                Login
-            </v-btn>
-            <v-btn
-                color="grey-darken-1"
-                class="mt-2"
-                block
-                density="compact"
-                @click="redirectPage('/fuldev/users/register')"
-            >
-                Register Here
-            </v-btn>
+                <v-row>
+                    <v-col cols="12">
+                        <v-card-title class="text-center">Login</v-card-title>
+                    </v-col>
+                    <v-col>
+                        <v-text-field
+                            v-model="username"
+                            label="Username"
+                            type="text"
+                        ></v-text-field>
+                        <v-text-field
+                            v-model="password"
+                            label="Password"
+                            type="password"
+                        ></v-text-field>
+                        <p 
+                            v-if="authError" 
+                            v-html="authError"
+                            class="text-center text-caption text-red-darken-3"
+                        ></p>
+                        <p 
+                            v-if="authMessage" 
+                            class="text-center text-caption text-blue-darken-3"
+                        >
+                            {{ authMessage }}
+                        </p>
+                        <v-btn
+                            block
+                            @click="handleLogin"
+                        >
+                            Login
+                        </v-btn>
+                        <v-btn
+                            color="grey-darken-1"
+                            class="mt-2"
+                            block
+                            density="compact"
+                            @click="redirectPage('/fuldev/users/register')"
+                        >
+                            Register Here
+                        </v-btn>
+                    </v-col>
+                </v-row>
+            </v-card>
         </v-col>
     </v-row>
     <v-row>

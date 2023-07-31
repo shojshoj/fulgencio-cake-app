@@ -9,62 +9,71 @@
         {{message}}
     </el-button> -->
 <v-container fluid>
-    <v-row>
-        <v-col cols="12">
-            <v-card-title class="text-center">Register</v-card-title>
-        </v-col>
+    <v-row class="text-center justify-center">
         <v-col>
-            <v-text-field
-                v-model="formData.username"
-                label="Username"
-                type="text"
-                :error-messages="
-                    v$.username.$errors.map(
-                        (e) => e.$message
-                    )
-                "
-            ></v-text-field>
-            <v-text-field
-                v-model="formData.password"
-                label="Password"
-                type="password"
-                :error-messages="
-                    v$.password.$errors.map(
-                        (e) => e.$message
-                    )
-                "
-                @update:model-value="testFunction"
-            ></v-text-field>
-            <v-text-field
-                v-model="formData.confirmPassword"
-                label="Confirm your Password"
-                type="password"
-                :error-messages="
-                    v$.confirmPassword.$errors.map(
-                        (e) => e.$message
-                    )
-                "
-            ></v-text-field>
-            <v-col cols="12">
-                <div class="text-red-lighten-2 text-center" v-for="error in v$.$errors" :key="error.$uid">
-                    <div class="error-msg">{{ error.$message }}</div>
-                </div>
-            </v-col>
-            <v-btn
-                block
-                @click="handleRegister"
+            <v-card
+                class="pa-5"
+                elevation="5"
             >
-                Register
-            </v-btn>
-            <v-btn
-                color="grey-darken-1"
-                class="mt-2"
-                block
-                density="compact"
-                @click="redirectPage('/fuldev/users/login')"
-            >
-                Login Here
-            </v-btn>
+                <v-row>
+                    <v-col cols="12">
+                        <v-card-title class="text-center">Register</v-card-title>
+                    </v-col>
+                    <v-col>
+                        <v-text-field
+                            v-model="formData.username"
+                            label="Username"
+                            type="text"
+                            :error-messages="
+                                v$.username.$errors.map(
+                                    (e) => e.$message
+                                )
+                            "
+                        ></v-text-field>
+                        <v-text-field
+                            v-model="formData.password"
+                            label="Password"
+                            type="password"
+                            :error-messages="
+                                v$.password.$errors.map(
+                                    (e) => e.$message
+                                )
+                            "
+                            @update:model-value="testFunction"
+                        ></v-text-field>
+                        <v-text-field
+                            v-model="formData.confirmPassword"
+                            label="Confirm your Password"
+                            type="password"
+                            :error-messages="
+                                v$.confirmPassword.$errors.map(
+                                    (e) => e.$message
+                                )
+                            "
+                        ></v-text-field>
+                        <v-col cols="12">
+                            <div class="text-red-lighten-2 text-center" v-for="error in v$.$errors" :key="error.$uid">
+                                <div class="error-msg">{{ error.$message }}</div>
+                            </div>
+                        </v-col>
+                        <v-btn
+                            block
+                            @click="handleRegister"
+                        >
+                            Register
+                        </v-btn>
+                        <v-btn
+                            color="grey-darken-1"
+                            class="mt-2"
+                            block
+                            density="compact"
+                            @click="redirectPage('/fuldev/users/login')"
+                        >
+                            Login Here
+                        </v-btn>
+                    </v-col>
+                </v-row>
+            </v-card>
         </v-col>
     </v-row>
 </v-container>

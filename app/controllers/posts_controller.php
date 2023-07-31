@@ -5,7 +5,15 @@ class PostsController extends AppController {
 
     function beforeFilter() {
     	parent::beforeFilter(); 
-        $this->Auth->allow('index','view','api_get_all');
+        $this->Auth->allow(
+			'index',
+			'view',
+			'api_get_all', 
+			'api_create', 
+			'api_view', 
+			'api_update', 
+			'api_delete'
+		);
 	}
 
 	function index() {
@@ -26,6 +34,33 @@ class PostsController extends AppController {
 			$response = $this->createResponse(
 				false,
 				"Posts wasn't Retrieved"
+			);
+		}
+		$this->returnAsJson($response, 'postLog');
+	}
+
+	function user_api_create() {
+		$data = $this->getJsonPostData();
+		$this->log($data, 'postData');
+		$this->Post->create();
+		$this->Post->set(array(
+			'title' => $data['title'],
+			'body' => $data['body'],
+			'image_path' => '/'.basename(ROOT).'/files/user/default/uploads/images/user_image.png',
+			'is_active' => 1,
+			'user_id' => $this->Auth->user('id')
+		));
+		if($this->Post->save()){
+			$response = $this->createResponse(
+				true,
+				"Post successfully Saved.",
+				$data
+			);
+		} else {
+			$response = $this->createResponse(
+				false,
+				"Post was not Saved.",
+				$data
 			);
 		}
 		$this->returnAsJson($response, 'postLog');
